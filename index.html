@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>CSS Pattern Generator v1.0</title>
+	<link rel="shortcut icon" href="favicon.ico?v=1">
+	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<script type="text/javascript" src="js/modernizr.custom.js"></script> <!-- Определение возможностей браузера -->
+	<script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
+
+</head>
+
+<body>
+	<div class="about">
+		<h1>CSS Pattern Generator v1.0</h1>
+		<p>Reload page to generate another pattern.</p>
+	</div>
+	<div class="parameters">
+		<form>
+			<div class="row">
+				<label>border-top-color</label>
+				<input type="text" id="border-top-color" value="" class="inp-border">
+				<a href="#" class="rnd-color">рандом</a>
+			</div>
+			<div class="row">
+				<label>border-right-color</label>
+				<input type="text" id="border-right-color" value="" class="inp-border">
+				<a href="#" class="rnd-color">рандом</a>
+			</div>
+			<div class="row">
+				<label>border-bottom-color</label>
+				<input type="text" id="border-bottom-color" value="" class="inp-border">
+				<a href="#" class="rnd-color">рандом</a>
+			</div>
+			<div class="row">
+				<label>border-left-color</label>
+				<input type="text" id="border-left-color" value="" class="inp-border">
+				<a href="#" class="rnd-color">рандом</a>
+			</div>
+			<div class="row">
+				<label>border-top-width (px)</label>
+				<input type="text" id="border-top-width" value="" class="inp-border">
+				<a href="#" class="rnd-width">рандом</a>
+			</div>
+			<div class="row">
+				<label>border-right-width (px)</label>
+				<input type="text" id="border-right-width" value="" class="inp-border">
+				<a href="#" class="rnd-width">рандом</a>
+			</div>
+			<div class="row">
+				<label>border-bottom-width (px)</label>
+				<input type="text" id="border-bottom-width" value="" class="inp-border">
+				<a href="#" class="rnd-width">рандом</a>
+			</div>
+			<div class="row">
+				<label>border-left-width (px)</label>
+				<input type="text" id="border-left-width" value="" class="inp-border">
+				<a href="#" class="rnd-width">рандом</a>
+			</div>
+			<div class="row">
+				<label>cells scale</label>
+				<input type="text" id="cells-scale" value="" class="inp-transform">
+				<a href="#" class="rnd-scale">рандом</a>
+			</div>
+			<div class="row">
+				<label>cells SkewX (deg)</label>
+				<input type="text" id="cells-skewx" value="" class="inp-transform">
+				<a href="#" class="rnd-skew">рандом</a>
+			</div>
+			<div class="row">
+				<label>cells SkewY (deg)</label>
+				<input type="text" id="cells-skewy" value="" class="inp-transform">
+				<a href="#" class="rnd-skew">рандом</a>
+			</div>
+		</form>
+	</div>
+	<ul class="cell-container"></ul>
+</body>
+</html>
