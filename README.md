@@ -1,0 +1,2 @@
+# generator
+CSS patterns generator
