@@ -1,58 +1,27 @@
 $(document).ready(function(){
 	patternInit();
 	
-	// $('.parameters .inp-cell').change(function() {		
-		// addCells();
-		// changeBorderColor();
-		// changeBorderWidth();
-	// });
 	$('.parameters input').change(function() {
 		genPattern(collectParameters());
 	});
-	/*
-	$('.parameters .inp-transform').change(function() {
-		changeCellsScale();
-		changeCellsSkew();
-	});
-	*/
-	$('.parameters .rnd-color').click(function(e) {		
-		$(this).siblings('input.inp-border').val(rndColor());
-		genPattern(collectParameters());
-		e.preventDefault();
-	});
-	$('.parameters .rnd-width').click(function(e) {		
-		$(this).siblings('input.inp-border').val(rndBorderWidth(150));
-		genPattern(collectParameters());
-		e.preventDefault();
-	});
-	$('.parameters .rnd-scale').click(function(e) {		
-		$(this).siblings('input.inp-transform').val(rndScale());
-		genPattern(collectParameters());
-		e.preventDefault();
-	});
-	$('.parameters .rnd-skew').click(function(e) {		
-		$(this).siblings('input.inp-transform').val(rndSkew());
-		genPattern(collectParameters());
-		e.preventDefault();
-	});
-});
-
-
-/*
-
-$(window).load(function() {
 	
-});
-
-$(window).resize(function() {
+	$('.parameters .randomize').click(function() {
+		$(this).toggleClass('locked');
+		$(this).toggleClass('unlocked');
+	});
 	
+	$('.parameters .random').click(function(e) {
+		randomizePattern();
+		genPattern(collectParameters());
+		e.preventDefault();
+	});
 });
-
-*/
 
 function patternInit() {
 	var cellWidth = Math.ceil(Math.random()*100+50);
 	var cellHeight = Math.ceil(Math.random()*100+50);
+	
+	$('.parameters #canvas-color').val(rndColor());
 	
 	var topBorder = rndBorderWidth(cellHeight);
 	$('.parameters #border-top-width').val(topBorder);
@@ -78,6 +47,7 @@ function patternInit() {
 
 function collectParameters() {
 	var args = {
+				'canvas-color' : $('.parameters #canvas-color').val(),
 				'border-top-color' : $('.parameters #border-top-color').val(),
 				'border-right-color' : $('.parameters #border-right-color').val(),
 				'border-bottom-color' : $('.parameters #border-bottom-color').val(),
@@ -110,46 +80,17 @@ function addCells(cellWidth, cellHeight) {
 		}
 	}
 }
-/*
-function changeBorderColor() {
-	var borderTopColor = $('.parameters #border-top-color').val();
-	var borderRightColor = $('.parameters #border-right-color').val();
-	var borderBottomColor = $('.parameters #border-bottom-color').val();
-	var borderLeftColor = $('.parameters #border-left-color').val();
-	
-	if ( borderTopColor != '' ) {$('.cell').css({'border-top-color':borderTopColor});}
-	if ( borderRightColor != '' ) {$('.cell').css({'border-right-color':borderRightColor});}
-	if ( borderBottomColor != '' ) {$('.cell').css({'border-bottom-color':borderBottomColor});}
-	if ( borderLeftColor != '' ) {$('.cell').css({'border-left-color':borderLeftColor});}
+
+function randomizePattern() {
+	$('.row .unlocked').each(function() { $(this).siblings('input.inp-color').val(rndColor()); });
+	$('.row .unlocked').each(function() { $(this).siblings('input.inp-width').val(rndBorderWidth(150)); });
+	$('.row .unlocked').each(function() { $(this).siblings('input.inp-scale').val(rndScale()); });
+	$('.row .unlocked').each(function() { $(this).siblings('input.inp-skew').val(rndSkew()); });
 }
 
-function changeBorderWidth() {
-	var borderTopWidth = $('.parameters #border-top-width').val();
-	var borderRightWidth = $('.parameters #border-right-width').val();
-	var borderBottomWidth = $('.parameters #border-bottom-width').val();
-	var borderLeftWidth = $('.parameters #border-left-width').val();
-
-	if ( borderTopWidth != '' ) {$('.cell').css({'border-top-width':borderTopWidth+'px'});}
-	if ( borderRightWidth != '' ) {$('.cell').css({'border-right-width':borderRightWidth+'px'});}
-	if ( borderBottomWidth != '' ) {$('.cell').css({'border-bottom-width':borderBottomWidth+'px'});}
-	if ( borderLeftWidth != '' ) {$('.cell').css({'border-left-width':borderLeftWidth+'px'});}
-}
-
-function changeCellsScale() {
-	var cellsScale = $('.parameters #cells-scale').val();
-	
-	if ( cellsScale != '' ) {$('.cell').css({'transform':'scale('+cellsScale+')'});}
-}
-
-function changeCellsSkew() {
-	var cellsSkewX = $('.parameters #cells-skewx').val();
-	var cellsSkewY = $('.parameters #cells-skewy').val();
-	
-	if ( cellsSkewX != '' ) {$('.cell').css({'transform':'skewX('+cellsSkewX+'deg)'});}
-	if ( cellsSkewY != '' ) {$('.cell').css({'transform':'skewY('+cellsSkewY+'deg)'});}
-}
-*/
 function genPattern(args) {
+	if ( args['canvas-color'] == '' ) args['canvas-color'] = rndColor();
+	
 	if ( args['border-top-color'] == '' ) args['border-top-color'] = rndColor();
 	if ( args['border-right-color'] == '' ) args['border-right-color'] = rndColor();
 	if ( args['border-bottom-color'] == '' ) args['border-bottom-color'] = rndColor();
@@ -165,6 +106,7 @@ function genPattern(args) {
 	if ( !isValidNumber(args['skewX']) ) args['skewX'] = rndSkew();
 	if ( !isValidNumber(args['skewY']) ) args['skewY'] = rndSkew();
 	
+	$('.cell-container').css({'background-color' : args['canvas-color']});
 	$('.cell').css({
 		'border-color' : args['border-top-color']+' '+args['border-right-color']+' '+args['border-bottom-color']+' '+args['border-left-color'],
 		'border-width' : args['border-top-width']+'px '+args['border-right-width']+'px '+args['border-bottom-width']+'px '+args['border-left-width']+'px',
@@ -183,7 +125,7 @@ function rndColor() {
 }
 
 function rndBorderWidth(e) {
-	return Math.round(Math.random()*e);
+	return Math.round(Math.random()*e+50);
 }
 
 function rndScale() {

@@ -49,7 +49,18 @@ input[type=submit], input[type=button] {
 	background-color: #fff;
 	z-index: 1000;
 }
-.row {margin-bottom: 5px;}
+.row {margin-bottom: 5px; white-space: nowrap;}
+.row .locked,
+.row .unlocked {
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	margin: 0 10px 0 0;
+	background: url(../images/lock.png) no-repeat 0 0;
+}
+.row .locked {background-position: 0 0 !important;}
+.row .unlocked {background-position: 0 -20px !important;}
+
 .row label {
 	display: inline-block;
 	width: 170px;
@@ -68,6 +79,5 @@ input[type=submit], input[type=button] {
 }
 .cell {
 	display: inline-block;
-	background-color: #dadada;
 	vertical-align: top;
 }
