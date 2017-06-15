@@ -1,14 +1,16 @@
 function patternInit() {
-	var cellWidth = rndWidth(70, 150);
-	var cellHeight = rndWidth(70, 150);
+	var cellWidth = rndWidth(70, 300);
+	var cellHeight = rndWidth(70, 300);
 	
 	$('.parameters #canvas-color').val(rndColor());
 	
 	var topBorder = rndWidth(0, cellHeight);
+	$('.parameters #cell-height').val(cellHeight);
 	$('.parameters #border-top-width').val(topBorder);
 	$('.parameters #border-bottom-width').val(cellHeight-topBorder);
 	
 	var rightBorder = rndWidth(0, cellWidth);
+	$('.parameters #cell-width').val(cellWidth);
 	$('.parameters #border-right-width').val(rightBorder);
 	$('.parameters #border-left-width').val(cellWidth-rightBorder);
 	
@@ -22,7 +24,7 @@ function patternInit() {
 	$('.parameters #cells-skewx').val(rndSkew());
 	$('.parameters #cells-skewy').val(rndSkew());
 	
-	var args = new Array(12);
+	//var args = new Array(12);
 	
 	addCells(cellWidth, cellHeight);
 	genPattern(collectParameters());
@@ -35,6 +37,8 @@ function collectParameters() {
 				'border-right-color' : $('.parameters #border-right-color').val(),
 				'border-bottom-color' : $('.parameters #border-bottom-color').val(),
 				'border-left-color' : $('.parameters #border-left-color').val(),
+				'cell-width' : $('.parameters #cell-width').val(),
+				'cell-height' : $('.parameters #cell-height').val(),
 				'border-top-width' : $('.parameters #border-top-width').val(),
 				'border-right-width' : $('.parameters #border-right-width').val(),
 				'border-bottom-width' : $('.parameters #border-bottom-width').val(),
@@ -66,7 +70,10 @@ function addCells(cellWidth, cellHeight) {
 
 function randomizePattern() {
 	$('.row .unlocked').each(function() { $(this).siblings('input.inp-color').val(rndColor()); });
-	$('.row .unlocked').each(function() { $(this).siblings('input.inp-width').val(rndWidth(0, 150)); });
+	$('.row .unlocked').each(function() {
+		$(this).siblings('input.inp-width').val(rndWidth(0, 150));
+		
+	});
 	$('.row .unlocked').each(function() { $(this).siblings('input.inp-scale').val(rndScale()); });
 	$('.row .unlocked').each(function() { $(this).siblings('input.inp-skew').val(rndSkew()); });
 }
@@ -79,10 +86,13 @@ function genPattern(args) {
 	if ( (args['border-bottom-color'] == '') || (!args['border-bottom-color']) ) args['border-bottom-color'] = rndColor();
 	if ( (args['border-left-color'] == '') || (!args['border-left-color']) ) args['border-left-color'] = rndColor();
 	
-	if ( !isValidNumber(args['border-top-width']) ) args['border-top-width'] = rndWidth(0, 150);
-	if ( !isValidNumber(args['border-right-width']) ) args['border-right-width'] = rndWidth(0, 150);
-	if ( !isValidNumber(args['border-bottom-width']) ) args['border-bottom-width'] = rndWidth(0, 150);
-	if ( !isValidNumber(args['border-left-width']) ) args['border-left-width'] = rndWidth(0, 150);
+	if ( !isValidNumber(args['cell-width']) ) args['cell-width'] = rndWidth(0, 300);
+	if ( !isValidNumber(args['cell-height']) ) args['cell-height'] = rndWidth(0, 300);
+	
+	if ( !isValidNumber(args['border-top-width']) ) args['border-top-width'] = rndWidth(0, args['cell-height']);
+	if ( !isValidNumber(args['border-right-width']) ) args['border-right-width'] = rndWidth(0, args['cell-width']);
+	if ( !isValidNumber(args['border-bottom-width']) ) args['border-bottom-width'] = args['cell-height']-args['border-top-width'];
+	if ( !isValidNumber(args['border-left-width']) ) args['border-left-width'] = args['cell-width']-args['border-right-width'];
 	
 	if ( !isValidNumber(args['cellsScale']) ) args['cellsScale'] = rndScale();
 	

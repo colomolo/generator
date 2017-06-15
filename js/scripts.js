@@ -6,8 +6,7 @@ $(document).ready(function(){
 	});
 	
 	$('.parameters .randomize').click(function(e) {
-		$(this).toggleClass('locked');
-		$(this).toggleClass('unlocked');
+		$(this).toggleClass('locked unlocked');
 		e.preventDefault();
 	});
 	
